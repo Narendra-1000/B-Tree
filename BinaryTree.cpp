@@ -112,6 +112,19 @@ int diameter(Node* root){
 	
 	return max(diam3,max(diam1,diam2));
 }
+int calcDiameter(Node* root,int* height){
+	if(root == NULL){
+		*height = 0;
+		return 0;
+	}
+	int lh =0,rh = 0;
+	int lDiameter = calcDiameter(root->left,&lh);
+	int rDiameter = calcDiameter(root->right,&rh);
+	int currDiameter = lh+rh+1;
+	*height = max(lh,rh)+1;
+	
+	return max(currDiameter,max(lDiameter,rDiameter));
+}
 int main(){
 	int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
 
@@ -127,5 +140,7 @@ int main(){
 	//cout<<count(root)<<endl;
 	//cout<<sum(root)<<endl;
 	//cout<<height(root);
-	cout<<diameter(root);
+	//cout<<diameter(root);
+	int height = 0;
+	cout<<calcDiameter(root,&height)<<endl;
 }
